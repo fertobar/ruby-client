@@ -55,12 +55,12 @@ module Namely
 
     def get(path, params = {})
       params.merge!(access_token: access_token)
-      JSON.parse(RestClient.get(url(path), accept: :json, params: params))
+      JSON.parse(RestClient.get(url(path), accept: :json, verify_ssl: false, params: params))
     end
 
     def head(path, params = {})
       params.merge!(access_token: access_token)
-      RestClient.head(url(path), accept: :json, params: params)
+      RestClient.head(url(path), accept: :json, verify_ssl: false, params: params)
     end
 
     def post(path, params)
@@ -70,6 +70,7 @@ module Namely
         params.to_json,
         accept: :json,
         content_type: :json,
+        verify_ssl: false
       )
     end
 
@@ -79,7 +80,8 @@ module Namely
         url(path),
         params.to_json,
         accept: :json,
-        content_type: :json
+        content_type: :json,
+        verify_ssl: false
       )
     end
   end
